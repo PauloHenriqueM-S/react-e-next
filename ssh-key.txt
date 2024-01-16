@@ -1,0 +1,14 @@
+ssh-keygen -t rsa -f "/c/Users/seu usuario/.ssh/github" -c "seu email"
+
+#Quando fechar o terminal preciso executar isso
+eval "$(ssh-agent -s)"
+ssh-add /c/Users/seu usuario/.ssh/github
+
+#Iniciando o git
+git init
+git config --global user.name "seu nome"
+git config --global user.email "seu email"
+git remote add origin "key do ssh"
+git add.
+git commit -m 'Descrição'
+git push origin master // -u caso queira só usar o git push
