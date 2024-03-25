@@ -1,13 +1,21 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import { PostsContext } from '../../contexts/PostsProvider/context';
 import { loadPosts } from '../../contexts/PostsProvider/actions';
 
 export const Posts = () => {
+  const isMounted = useRef(true);
   const postsContext = useContext(PostsContext);
   const { postsState, postsDispatch } = postsContext;
 
   useEffect(() => {
-    loadPosts(postsDispatch);
+    loadPosts(postsDispatch).then((dispatch) => {
+      if (isMounted.current) {
+        dispatch();
+      }
+    });
+    return () => {
+      isMounted.current = false;
+    };
   }, [postsDispatch]);
 
   return (
